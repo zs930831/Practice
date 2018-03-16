@@ -9,7 +9,7 @@ def timer(func):
         starttime = time.time()
         func(*args,**kwargs)
         endtime = time.time()
-        print "It has spended %s" % (endtime - starttime)
+        print ("It has spended %s" % (endtime - starttime))
 
     return dec
 
@@ -17,12 +17,12 @@ def timer(func):
 # 第二种调用方式
 @timer
 def test1():
-    print "in test1"
+    print ("in test1")
     time.sleep(1)
 
 @timer
 def test2(name):
-    print "test2:",name
+    print ("test2:",name)
 
 
 

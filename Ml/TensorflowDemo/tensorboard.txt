@@ -1,0 +1,2 @@
+activate tensorflow
+tensorboard --logdir E:\python\Practice\Ml\TensorflowDemo\logs

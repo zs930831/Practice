@@ -10,7 +10,7 @@ def bulk(self):
     print ("%s is yelling"%self.name)
 dog=Dog("Tom")
 #python 3.x用input
-choice=raw_input(">>>>:").strip()
+choice=input(">>>>:").strip()
 if hasattr(dog,choice):
     func=getattr(dog,choice)
     func("bone")
