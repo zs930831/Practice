@@ -33,7 +33,6 @@ def download():     # download tiger and kittycat image
                 except:
                     print('%s %i/%i' % (category, i, n_urls), 'no image')
 
-
 def load_img(path):
     img = skimage.io.imread(path)
     img = img / 255.0
