@@ -20,6 +20,7 @@ ACTIVATION = tf.nn.tanh
 N_LAYERS = 7
 N_HIDDEN_UNITS = 30
 
+
 #给随机数设置种子
 def fix_seed(seed=1):
     # reproducible
