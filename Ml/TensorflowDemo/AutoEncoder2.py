@@ -1,9 +1,5 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -107,14 +103,14 @@ with tf.Session() as mySess:
             _, c = mySess.run([optimizer, cost], feed_dict={X: batch_xs})
 
         # Display logs per epoch step
-        if epoch % display_step == 0:
-            print("Epoch", "%4d" % (epoch + 1),
-                  "cost=", "{:.9f}".format(c))
+        # if epoch % display_step == 0:
+        #     print("Epoch", "%4d" % (epoch + 1),
+        #           "cost=", "{:.9f}".format(c))
     print("Optimizer Finished")
 
     encoder_result = mySess.run(encoder_op, feed_dict={X: mnist.test.images})
-    #print(mnist.test.labels)
+    # print(mnist.test.labels)
     # c为颜色
-    #color=['r','b','green','yellow','orange','purple','grey','black','pink']
-    plt.scatter(encoder_result[:,0], encoder_result[:,1], c=mnist.test.labels)
+    # color=['r','b','green','yellow','orange','purple','grey','black','pink']
+    plt.scatter(encoder_result[:, 0], encoder_result[:, 1], c=mnist.test.labels)
     plt.show()

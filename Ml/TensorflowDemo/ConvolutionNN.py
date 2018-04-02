@@ -1,9 +1,5 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import os
-
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
@@ -61,7 +57,7 @@ ys = tf.placeholder(tf.float32, [None, 10])
 keep_prob = tf.placeholder(tf.float32)
 # -1表示sample的个数，1为黑白，3为彩色,28x28x1表示一张图片，batch是一次取多少图片
 x_image = tf.reshape(xs, [-1, 28, 28, 1])
-print(x_image.shape)  # [n_samples,28,28,1]
+#print(x_image.shape)  # [n_samples,28,28,1]
 
 # conv1 layer
 # 5x5:patch(类似于扫描仪),1:in size（原始的图片厚度）,32:out size(输出图片的厚度，卷积核的个数，有多少个结果就有多高）
@@ -105,7 +101,7 @@ init = tf.global_variables_initializer()
 with tf.Session() as mySess:
     mySess.run(init)
     for i in range(1000):
-        batch_xs, batch_ys = mnist.train.next_batch(100)
+        batch_xs, batch_ys = mnist.train.next_batch(50)
         mySess.run(train_step, feed_dict={xs: batch_xs, ys: batch_ys, keep_prob: 0.5})
         if i % 50 == 0:
-            print(compute_accuracy(mnist.test.images, mnist.test.labels))
+            print(compute_accuracy(mnist.test.images[:5000], mnist.test.labels[:5000]))

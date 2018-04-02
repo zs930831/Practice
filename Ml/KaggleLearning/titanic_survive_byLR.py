@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 
+
 titanic_train_data=pd.read_csv("titanic_survive/train.csv")
 #print(titanic.head())
 #print(titanic.describe())

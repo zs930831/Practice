@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-
+import sys
 '''
  给定两个长度为 n ( 0 < n <= 8 ) 的 数字串 (由1到9构成)  ，我们希望对第一个数字串做一系列如下操作：
 
@@ -41,7 +41,7 @@ def getMinSteps(sList,dList,startIndex,endIndex):
     #case1 add or minus
     result1=abs(s[0]-d[0])+getMinSteps(s,d,1,curLenth-1)
     #case2 swap through the whole list
-    result2,tempS=maxint,s
+    result2,tempS=sys.maxsize,s
     for i in range(curLenth):
         swap(tempS,0,i)
         tempResult=abs(tempS[0]-d[0])+getMinSteps(s,d,1,curLenth-1)+1
