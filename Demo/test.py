@@ -1,58 +1,43 @@
-#!/bin/python
-import sys
-import os
+# print("my wife's name is {}".format('wxs'))
+# print('my salary is {:.2f},{:.3f}'.format(3.1213213,4.3213))
+#import numpy as np
+#自己当作成一位数组
+# List=[[1,2,3],[4,5,6],[7,8,9]]
+#
+# print([np.column_stack([i for i in l])for l in List])
+# print([np.column_stack([i for i in l]).mean(axis=1)for l in List])
+# print(np.column_stack([np.column_stack([i for i in l]).mean(axis=1)for l in List]))
 
 
-# 请完成下面这个函数，实现题目要求的功能
-# 当然，你也可以不按照下面这个模板来作答，完全按照自己的想法来 ^-^
-# ******************************开始写代码******************************
-class nen:
-    def __init__(self, str):
-        self.node1 = str[0]
-        self.edge = int(str[1])
-        self.node2 = str[2]
+#print(list(map(lambda x,y:x+y, [1,2,3],[4,5,6])))
 
+# for num in range(10,-1,-1):
+#     print(num)
 
-def calculate(M, strs):
-    list = []
-    for m in range(M):
-        i = 0
-        while i < len(strs[m]) - 1:
-            tempStr = strs[m][i:i + 3]
-            print(tempStr)
-            list.append(nen(tempStr))
-            i += 2
-    if len(list) == 1:
-        return list[0].edge
-    for j in range(len(list) - 1):
-        if list[j].node2 == list[j + 1].node1:
-            list[j].node2 = list[j + 1].node2
-            list[j].edge = list[j].edge + list[j + 1].edge
-        if list[j + 1].node2 == list[j].node1:
-            return -1
-    max = 0
-    for l in list:
-        if l.edge > max:
-            max = l.edge
-    return max
+# print(17/100)
 
+#Python 3.x前要加list
+# n = int(input())
+# arr = map(int, input().split())
+# K, D = map(int, input().split())
 
-# ******************************结束写代码******************************
+#a=[1,2,3,5,4]
+# a.pop(-1)
+# print(a,len(a))
+#print(a.index(1))
 
+#
+# a='ewqe'
+# print(a.index('e'))
+# str='test'
+# print(str.replace('t','s',1))
 
-_M = int(input())
+# a,b=[1,2,3],[4,5,6]
+# for c,d in zip(a,b):
+#     print(c,d)
 
-_strs_cnt = _M
-_strs_i = 0
-_strs = []
-while _strs_i < _strs_cnt:
-    try:
-        _strs_item = input()
-    except:
-        _strs_item = None
-    _strs.append(_strs_item)
-    _strs_i += 1
-# print(_strs)
-res = calculate(_M, _strs)
-
-print(str(res) + "\n")
+a=set()
+a.add(1)
+a.add(2)
+a.add(1)
+print(list(a))

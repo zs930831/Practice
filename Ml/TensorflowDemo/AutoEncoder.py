@@ -34,66 +34,69 @@ weights = {
     'decoder_h2': tf.Variable(tf.random_normal([n_hidden_1, n_input]))
 }
 
-biases={
-    'encoder_h1': tf.Variable(tf.random_normal([ n_hidden_1])),
+biases = {
+    'encoder_h1': tf.Variable(tf.random_normal([n_hidden_1])),
     'encoder_h2': tf.Variable(tf.random_normal([n_hidden_2])),
 
     'decoder_h1': tf.Variable(tf.random_normal([n_hidden_1])),
     'decoder_h2': tf.Variable(tf.random_normal([n_input]))
 }
 
-#Building the enconder
+
+# Building the enconder
 def enconder(x):
-    layer_1=tf.nn.sigmoid(tf.matmul(x,weights['encoder_h1'])+biases['encoder_h1'])
-    #Encoder Hidden layer with sigmoid activation
-    layer_2=tf.nn.sigmoid(tf.matmul(layer_1,weights['encoder_h2'])+biases['encoder_h2'])
+    layer_1 = tf.nn.sigmoid(tf.matmul(x, weights['encoder_h1']) + biases['encoder_h1'])
+    # Encoder Hidden layer with sigmoid activation
+    layer_2 = tf.nn.sigmoid(tf.matmul(layer_1, weights['encoder_h2']) + biases['encoder_h2'])
     return layer_2
 
-#Building the deconder
+
+# Building the deconder
 def deconder(x):
-    layer_1=tf.nn.sigmoid(tf.matmul(x,weights['decoder_h1'])+biases['decoder_h1'])
-    #Decoder Hidden layer with sigmoid activation
-    layer_2=tf.nn.sigmoid(tf.matmul(layer_1,weights['decoder_h2'])+biases['decoder_h2'])
+    layer_1 = tf.nn.sigmoid(tf.matmul(x, weights['decoder_h1']) + biases['decoder_h1'])
+    # Decoder Hidden layer with sigmoid activation
+    layer_2 = tf.nn.sigmoid(tf.matmul(layer_1, weights['decoder_h2']) + biases['decoder_h2'])
     return layer_2
 
-#Construct model
-encoder_op=enconder(X)
-decoder_op=deconder(encoder_op)
 
-#prediction
-y_pred=decoder_op
-#Targets(Labels)are the input data
-y_true=X
+# Construct model
+encoder_op = enconder(X)
+decoder_op = deconder(encoder_op)
 
-#Define loss and optimizer,minimize the squard error
-cost=tf.reduce_mean(tf.pow(y_true-y_pred,2))
-optimizer=tf.train.AdamOptimizer(learning_rate).minimize(cost)
+# prediction
+y_pred = decoder_op
+# Targets(Labels)are the input data
+y_true = X
 
-init=tf.global_variables_initializer()
+# Define loss and optimizer,minimize the squard error
+cost = tf.reduce_mean(tf.pow(y_true - y_pred, 2))
+optimizer = tf.train.AdamOptimizer(learning_rate).minimize(cost)
+
+init = tf.global_variables_initializer()
 
 with tf.Session() as mySess:
     mySess.run(init)
-    total_batch=int(mnist.train.num_examples/batch_size)
-    #Traing Cycle
+    total_batch = int(mnist.train.num_examples / batch_size)
+    # Traing Cycle
     for epoch in range(training_epochs):
-        #loop over all batches
+        # loop over all batches
         for i in range(total_batch):
-            #max(x)=1,min(x)=0, has normalization
+            # max(x)=1,min(x)=0, has normalization
             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
-            #Run optimizer op(backprop)and cost op(to get loss value)
-            _,c=mySess.run([optimizer,cost],feed_dict={X:batch_xs})
+            # Run optimizer op(backprop)and cost op(to get loss value)
+            _, c = mySess.run([optimizer, cost], feed_dict={X: batch_xs})
 
-        #Display logs per epoch step
-        if epoch%display_step==0:
-            print("Epoch","%4d"%(epoch+1),
-                  "cost=","{:.9f}".format(c))
+        # Display logs per epoch step
+        if epoch % display_step == 0:
+            print("Epoch", "%4d" % (epoch + 1),
+                  "cost=", "{:.9f}".format(c))
     print("Optimizer Finished")
 
-    #Appling encode and decode over test set
-    encode_decode=mySess.run(y_pred,feed_dict={X:mnist.test.images[:examples_to_show]})
-    #Compare original images with their reconstructions
-    f,a=plt.subplots(2,10,figsize=(10,2))
+    # Appling encode and decode over test set
+    encode_decode = mySess.run(y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
+    # Compare original images with their reconstructions
+    f, a = plt.subplots(2, 10, figsize=(10, 2))
     for i in range(examples_to_show):
-        a[0][i].imshow(np.reshape(mnist.test.images[i],(28,28)))
+        a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
     plt.show()
